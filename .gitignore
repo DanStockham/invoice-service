@@ -1,3 +1,5 @@
 node_modules
 test-report.html
 yarn-error.log
+coverage
+dist
