@@ -27,9 +27,9 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
-  "name": "express-typescript-template",
+  "name": "invoice-service",
   "version": "0.0.1",
-  "description": "A boilerplate template for a typescript express server which can be quickly scaffolded",
+  "description": "An API service that maintains invoices, and generates PDFs for them",
   "main": "index.js",
   "author": "DanStockham",
   "license": "MIT",
