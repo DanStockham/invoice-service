@@ -21,6 +21,7 @@
     "jest-extended": "^3.2.4",
     "jest-html-reporter": "^3.8.0",
     "prettier": "^2.8.7",
+    "prisma": "^4.13.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
@@ -33,10 +34,21 @@
   "author": "DanStockham",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "4.13.0",
+    "@types/express-handlebars": "^6.0.0",
+    "@types/morgan": "^1.9.4",
+    "@types/swagger-jsdoc": "^6.0.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "handlebars": "^4.7.7",
     "module-alias": "^2.2.2",
-    "nodemon": "^2.0.22"
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22",
+    "puppeteer": "^20.7.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
+    "winston": "^3.8.2"
   }
 }

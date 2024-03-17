@@ -1,4 +1,6 @@
 import * as moduleAlias from 'module-alias';
+import logger from './logger';
+
 const sourcePath = 'src';
 moduleAlias.addAlias({
   '@server': sourcePath,
@@ -6,6 +8,7 @@ moduleAlias.addAlias({
   '@domain': `${sourcePath}/domain`,
   '@controller': `${sourcePath}/controller`,
   '@middleware': `${sourcePath}/middleware`,
+  '@templates': `${sourcePath}/templates`,
 });
 
 import { createServer } from '@config/express';
@@ -19,7 +22,7 @@ const startServer = async () => {
   const app = await createServer();
   const server = http.createServer(app).listen({ host, port }, () => {
     const addressInfo = server.address() as AddressInfo;
-    console.log(
+    logger.info(
       `Server is ready at http://${addressInfo.address}:${addressInfo.port}`,
     );
   });

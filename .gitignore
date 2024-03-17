@@ -3,3 +3,5 @@ test-report.html
 yarn-error.log
 coverage
 dist
+logs/*
+.env

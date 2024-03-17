@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BillingConfiguration {
+  Id        String  @id @default(uuid())
+  Address   Address @relation(fields: [addressId], references: [Id])
+  Phones    Phone[]
+  Email     String  @unique
+  Heading   Heading @relation(fields: [headingId], references: [Id])
+  addressId Int     @unique
+  headingId String  @unique
+}
+
+model Company {
+  Id       Int       @id @default(autoincrement())
+  Name     String
+  Address  Address?
+  Phones   Phone[]
+  Email    String    @unique
+  Invoices Invoice[]
+}
+
+model Address {
+  Id                   Int                   @id @default(autoincrement())
+  Street1              String
+  Street2              String
+  Street3              String
+  Street4              String
+  City                 String
+  State                String
+  Zipcode              String
+  Company              Company?              @relation(fields: [Id], references: [Id])
+  BillingConfiguration BillingConfiguration?
+}
+
+model Phone {
+  Id                     Int                   @id @default(autoincrement())
+  PhoneNumber            String
+  Extension              String
+  CountryCode            String
+  Type                   String
+  Company                Company?              @relation(fields: [companyId], references: [Id])
+  companyId              Int?
+  BillingConfiguration   BillingConfiguration? @relation(fields: [billingConfigurationId], references: [Id])
+  billingConfigurationId String?
+}
+
+model Invoice {
+  Id            Int           @id @default(autoincrement())
+  Client        Company       @relation(fields: [companyId], references: [Id])
+  InvoiceNumber String        @unique
+  TermType      TermType      @relation(fields: [termTypeId], references: [Id])
+  LineItems     LineItem[]
+  Notes         String
+  Status        InvoiceStatus
+  DateCreated   DateTime
+  CreatedBy     String?
+  companyId     Int
+  termTypeId    Int
+}
+
+enum InvoiceStatus {
+  INITIALED
+  PENDING
+  PAID
+  LATE
+}
+
+model TermType {
+  Id            Int       @id @default(autoincrement())
+  Name          String
+  Display       String
+  DaysWithinDue Int
+  Invoice       Invoice[]
+}
+
+model LineItem {
+  Id         Int      @id @default(autoincrement())
+  Offering   Offering @relation(fields: [offeringId], references: [Id])
+  Quantity   Int
+  Invoice    Invoice? @relation(fields: [invoiceId], references: [Id])
+  invoiceId  Int?
+  offeringId Int
+}
+
+model Offering {
+  Id          Int        @id @default(autoincrement())
+  Name        String
+  Display     String
+  CostPerUnit Int
+  CreatedAt   DateTime   @default(now())
+  CreatedBy   String?
+  IsActive    Boolean
+  LineItem    LineItem[]
+}
+
+model Heading {
+  Id                   String                @id @default(uuid())
+  Title                String
+  Logo                 String
+  SubTitle             String
+  BillingConfiguration BillingConfiguration?
+}
